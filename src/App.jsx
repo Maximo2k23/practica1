@@ -1,16 +1,28 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react';
+import LoginForm from './components/LoginForm';
+import ChatHeader from './components/ChatHeader';
+import ChatSidebar from './components/ChatSidebar';
+import ChatMain from './components/ChatMain';
+import ChatFooter from './components/ChatFooter';
+import { useAuth } from './hooks/useAuth';
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+    const user = useAuth();
 
-  return (
-    <>
-      <h1>hola</h1>
-    </>
-  )
-}
+    if (!user) {
+        return <LoginForm />;
+    }
 
-export default App
+    return (
+        <div className="flex flex-col h-screen">
+            <ChatHeader />
+            <div className="flex flex-1">
+                <ChatSidebar />
+                <ChatMain />
+            </div>
+            <ChatFooter />
+        </div>
+    );
+};
+
+export default App;
